@@ -1,0 +1,29 @@
+CKEDITOR用法:
+
+官网地址: https://ckeditor.com
+
+开发包(插件不一样):
+  基础版:
+    plugins: 18
+    basic(基础版): https://download.cksource.com/CKEditor/CKEditor/CKEditor%204.7.2/ckeditor_4.7.2_basic.zip
+  标准版:
+    plugins: 50
+    standard(标准版): https://download.cksource.com/CKEditor/CKEditor/CKEditor%204.7.2/ckeditor_4.7.2_standard.zip
+  全版:
+    plugins: 75
+    full(全版): https://download.cksource.com/CKEditor/CKEditor/CKEditor%204.7.2/ckeditor_4.7.2_full.zip
+
+更多插件:
+  地址: https://ckeditor.com/addons/plugins
+
+插件安装方法:
+  1.Extract the downloaded plugin .zip into the plugins folder of your CKEditor installation. Example:
+  http://example.com/ckeditor/plugins/uploadimage
+  2.Enable the plugin by using the extraPlugins configuration setting. Example:
+  config.extraPlugins = 'uploadimage';
+
+本项目使用的插件:
+  full_ckeditor
+  uploadimage
+  uploadwidget
+

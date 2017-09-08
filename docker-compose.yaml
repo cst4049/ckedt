@@ -1,0 +1,14 @@
+version: "2.0"
+services:
+  edumongo:
+    image: mongo:latest
+    command: mongod
+    ports:
+      - "27017:27017"
+    volumes:
+      - edu_vol:/data/db
+
+volumes:
+  edu_vol:
+    driver: local
+    

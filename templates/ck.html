@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    <script src='./static/sdk_ckeditor/ckeditor.js'></script>
+    <script src='https://sdk.ckeditor.com/theme/css/sdk.css'></script>
+    <script src='https://sdk.ckeditor.com/vendor/ckeditor/ckeditor.js'></script>
+    <script src="https://sdk.ckeditor.com/samples/assets/sample.js"></script>
+	<script src="https://sdk.ckeditor.com/samples/assets/contentloaded.js"></script>
+	<script src="https://sdk.ckeditor.com/samples/assets/simplesample.js"></script>
+    -->
+    <script src='./static/ckeditor/ckeditor.js'></script>
+    <script src='./static/jquery.js'></script>
+    <!--<script src="//cdn.ckeditor.com/4.7.2/full/ckeditor.js"></script>-->
+    <meta charset="UTF-8">
+    <title>ckeditor</title>
+
+</head>
+<body>
+    <script>
+      function test() {
+          var editor_data = CKEDITOR.instances.editor1.getData();
+          var ret = JSON.stringify({"data":editor_data});
+          console.log(ret)
+          if(editor_data==null||editor_data==""){
+              alert("数据为空不能提交");
+          }
+          else{
+              if(confirm(editor_data)){
+                  $.ajax({
+	                  cache: true,
+	                  type: "POST",
+	                  contentType: "application/json; charset=utf-8",
+	                  url: "/upload/",
+	                  data: ret,
+	                  dataType: "json",
+	                  success: function(data) {
+                          alert("sucess");
+                      },
+                      error: function(e) {
+                         alert("aaa",e);
+                      }
+                  });
+              }
+          }
+      }
+      function getinfo() {
+          $.ajax({
+	          type: "GET",
+	          url: "/gettm/",
+	          success: function(data) {
+                  CKEDITOR.instances.editor1.setData(data);
+                  console.log(data);
+              }
+          });
+      }
+
+    function convertImgToBase64(url, outputFormat){
+        var canvas = document.createElement('CANVAS'),
+        ctx = canvas.getContext('2d'),
+        img = new Image;
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img,0,0);
+            var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+            console.log(dataURL)
+            canvas = null;
+            CKEDITOR.instances.editor1.setData("<img src=\""+dataURL+"\" />")
+          };
+        img.src = url;
+    }
+    </script>
+        <form>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+        <input type="button" onclick="test()" value="提交数据"/>
+        <input type="button" onclick="getinfo()" value="获取数据"/>
+        <script>
+            CKEDITOR.replace('editor1', {
+            filebrowserUploadUrl: '/ckupload/',
+          });
+          <!--convertImgToBase64('http://f12.baidu.com/it/u=4277895176,3847660048&fm=76');-->
+        </script>
+        </form>
+    </body>
+</html>
